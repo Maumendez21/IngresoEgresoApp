@@ -29,6 +29,10 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
+import { OrderIncomePipe } from './Pipes/order-income.pipe';
+
+// chart
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { appReducers } from './app.reducer';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrderIncomePipe
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { appReducers } from './app.reducer';
     ReactiveFormsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    NgChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({

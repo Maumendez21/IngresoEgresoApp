@@ -6,6 +6,7 @@ import { User } from '../Models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authNgrx from '../auth/auth.actions';
+import * as ieAction from '../ingreso-egreso/income-egress.action';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,11 @@ import * as authNgrx from '../auth/auth.actions';
 export class AuthService {
 
   public subUser!: Subscription;
+  private _user!: User | null;
+
+  get user(){
+    return {...this._user};
+  }
 
   constructor(public auth: AngularFireAuth,
     private store: AngularFirestore,
@@ -23,11 +29,14 @@ export class AuthService {
 
       if (user === null) {
 
+        this._user = null;
         if(this.subUser)
         {
           this.subUser.unsubscribe();
         }
         this.storeNgrx.dispatch(authNgrx.unSetUser());
+        this.storeNgrx.dispatch(ieAction.unSetItems());
+
 
       } else {
 
@@ -35,6 +44,7 @@ export class AuthService {
         .valueChanges().subscribe(userStore => {
 
           const user = User.fromFirebase(userStore)
+          this._user = user;
           this.storeNgrx.dispatch(authNgrx.setUser({user}));
 
         })
