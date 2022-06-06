@@ -5,6 +5,7 @@ import { AppState } from '../../app.reducer';
 
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
 import { Subscription } from 'rxjs';
+import { AppStateWithIncomeEgress } from '../income-egress.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -33,7 +34,7 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
   public totalEgress: number = 0;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppStateWithIncomeEgress>
   ) { }
   ngOnDestroy(): void {
     this.ieSub.unsubscribe();

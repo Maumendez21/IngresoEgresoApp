@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/app.reducer';
 import { IncomeEgress } from 'src/app/Models/ingresos-egresos.model';
 import { IncomeEgressService } from '../../Services/income-egress.service';
 import Swal from 'sweetalert2';
+import { AppStateWithIncomeEgress } from '../income-egress.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -17,7 +17,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
   public ieSubs!: Subscription;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<AppStateWithIncomeEgress>,
     private ieService: IncomeEgressService
   ) { }
 
